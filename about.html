@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Hijack Science Centre</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <p data-i18n="loading">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-logo">
+      <span class="logo-text">HIJACK</span>
+      <span class="logo-accent">SC</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" class="nav-link" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" class="nav-link" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" class="nav-link active" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <div class="toggle-track">
+          <div class="toggle-thumb">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </div>
+        </div>
+      </button>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Three.js Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- About Header -->
+  <section class="page-header">
+    <h1 class="page-title" data-i18n="about.title">About Us</h1>
+    <p class="page-subtitle" data-i18n="about.subtitle">Pioneering science education since 2010</p>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="mission-content">
+      <div class="mission-text">
+        <h2 data-i18n="about.mission.title">Our Mission</h2>
+        <p data-i18n="about.mission.desc">At Hijack Science Centre, we believe every child has the potential to become a scientist. Our mission is to make science education accessible, engaging, and fun for students of all ages.</p>
+        <div class="mission-values">
+          <div class="value-item">
+            <div class="value-icon">🚀</div>
+            <span data-i18n="about.values.innovation">Innovation</span>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🔬</div>
+            <span data-i18n="about.values.discovery">Discovery</span>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🌍</div>
+            <span data-i18n="about.values.impact">Global Impact</span>
+          </div>
+        </div>
+      </div>
+      <div class="mission-visual">
+        <div class="hologram-frame">
+          <div class="hologram-content"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <h2 class="section-title" data-i18n="about.team.title">Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-card" data-tilt>
+        <div class="avatar-bubble">
+          <div class="avatar-3d"></div>
+          <div class="bubble-ring"></div>
+        </div>
+        <h3 data-i18n="about.team.member1.name">Dr. Sarah Johnson</h3>
+        <span class="team-role" data-i18n="about.team.member1.role">Director of Research</span>
+        <p data-i18n="about.team.member1.bio">PhD in Molecular Biology with 15 years of research experience</p>
+      </div>
+      <div class="team-card" data-tilt>
+        <div class="avatar-bubble">
+          <div class="avatar-3d"></div>
+          <div class="bubble-ring"></div>
+        </div>
+        <h3 data-i18n="about.team.member2.name">Prof. Michael Chen</h3>
+        <span class="team-role" data-i18n="about.team.member2.role">Head of Robotics</span>
+        <p data-i18n="about.team.member2.bio">Pioneer in educational robotics and AI integration</p>
+      </div>
+      <div class="team-card" data-tilt>
+        <div class="avatar-bubble">
+          <div class="avatar-3d"></div>
+          <div class="bubble-ring"></div>
+        </div>
+        <h3 data-i18n="about.team.member3.name">Dr. Elena Rodriguez</h3>
+        <span class="team-role" data-i18n="about.team.member3.role">Lead Astrophysicist</span>
+        <p data-i18n="about.team.member3.bio">NASA consultant and space science educator</p>
+      </div>
+      <div class="team-card" data-tilt>
+        <div class="avatar-bubble">
+          <div class="avatar-3d"></div>
+          <div class="bubble-ring"></div>
+        </div>
+        <h3 data-i18n="about.team.member4.name">Alex Thompson</h3>
+        <span class="team-role" data-i18n="about.team.member4.role">Innovation Lead</span>
+        <p data-i18n="about.team.member4.bio">Former SpaceX engineer and tech education advocate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <h2 class="section-title" data-i18n="about.timeline.title">Our Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">2010</span>
+          <h3 data-i18n="about.timeline.item1.title">Foundation</h3>
+          <p data-i18n="about.timeline.item1.desc">Hijack Science Centre was founded with a vision to revolutionize science education</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">2015</span>
+          <h3 data-i18n="about.timeline.item2.title">First Virtual Lab</h3>
+          <p data-i18n="about.timeline.item2.desc">Launched our groundbreaking virtual laboratory platform</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">2019</span>
+          <h3 data-i18n="about.timeline.item3.title">Global Expansion</h3>
+          <p data-i18n="about.timeline.item3.desc">Expanded to 15 countries with localized programs</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">2024</span>
+          <h3 data-i18n="about.timeline.item4.title">AI Integration</h3>
+          <p data-i18n="about.timeline.item4.desc">Introduced AI-powered personalized learning paths</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo-text">HIJACK</span>
+        <span class="logo-accent">SC</span>
+        <p data-i18n="footer.tagline">Inspiring the next generation of scientists</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <a href="lab.html" data-i18n="nav.lab">Virtual Lab</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+        </div>
+        <div class="footer-column">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+          <a href="#" data-i18n="footer.social">Social Media</a>
+          <a href="#" data-i18n="footer.newsletter">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Hijack Science Centre. <span data-i18n="footer.rights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three-about.js"></script>
+  <script src="js/gsap-animations.js"></script>
+  <!-- Diagnostic: detect whether main stylesheet loaded and show visual outline -->
+  <script>
+    (function(){
+      const loaded = Array.from(document.styleSheets).map(s=>s.href).filter(Boolean);
+      console.log('Loaded stylesheets:', loaded);
+      const ok = loaded.some(h => h && h.includes('/css/styles.css'));
+      if (!ok) {
+        console.warn('Main stylesheet not detected: css/styles.css');
+        // visible indicator: dashed red outline
+        document.addEventListener('DOMContentLoaded', ()=>{ document.body.style.outline = '8px dashed #F4000A'; });
+      } else {
+        console.log('Main stylesheet detected.');
+        document.addEventListener('DOMContentLoaded', ()=>{ document.body.style.outline = '8px dashed #00ADF1'; });
+      }
+    })();
+  </script>
+</body>
+</html>

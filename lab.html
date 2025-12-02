@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Lab - Hijack Science Centre</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <p data-i18n="loading">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-logo">
+      <span class="logo-text">HIJACK</span>
+      <span class="logo-accent">SC</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" class="nav-link" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" class="nav-link active" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" class="nav-link" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <div class="toggle-track">
+          <div class="toggle-thumb">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </div>
+        </div>
+      </button>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Three.js Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Lab Header -->
+  <section class="page-header">
+    <h1 class="page-title" data-i18n="lab.title">Virtual Laboratory</h1>
+    <p class="page-subtitle" data-i18n="lab.subtitle">Click on objects to explore and learn</p>
+  </section>
+
+  <!-- Lab Interface -->
+  <section class="lab-section">
+    <div class="lab-container">
+      <!-- Lab Controls -->
+      <div class="lab-controls">
+        <button class="lab-control-btn active" data-view="overview">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span data-i18n="lab.overview">Overview</span>
+        </button>
+        <button class="lab-control-btn" data-view="chemistry">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 3h6v5a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V3z"></path>
+            <path d="M7 8v13l5-3 5 3V8"></path>
+          </svg>
+          <span data-i18n="lab.chemistry">Chemistry</span>
+        </button>
+        <button class="lab-control-btn" data-view="biology">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          </svg>
+          <span data-i18n="lab.biology">Biology</span>
+        </button>
+        <button class="lab-control-btn" data-view="physics">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="12" cy="12" r="5"></circle>
+            <circle cx="12" cy="12" r="9"></circle>
+          </svg>
+          <span data-i18n="lab.physics">Physics</span>
+        </button>
+      </div>
+
+      <!-- Lab Canvas Container -->
+      <div class="lab-canvas-container" id="labCanvas">
+        <!-- 3D Lab Scene will be rendered here -->
+        <div class="lab-instructions">
+          <div class="instruction-icon">🔬</div>
+          <p data-i18n="lab.instructions">Hover and click on lab objects to interact</p>
+        </div>
+      </div>
+
+      <!-- Lab Equipment Panel -->
+      <div class="lab-equipment">
+        <h3 data-i18n="lab.equipment">Lab Equipment</h3>
+        <div class="equipment-list">
+          <div class="equipment-item" data-equipment="microscope">
+            <div class="equipment-icon">🔬</div>
+            <span data-i18n="lab.microscope">Microscope</span>
+          </div>
+          <div class="equipment-item" data-equipment="testtube">
+            <div class="equipment-icon">🧪</div>
+            <span data-i18n="lab.testtube">Test Tubes</span>
+          </div>
+          <div class="equipment-item" data-equipment="robot">
+            <div class="equipment-icon">🤖</div>
+            <span data-i18n="lab.robot">Robot Arm</span>
+          </div>
+          <div class="equipment-item" data-equipment="computer">
+            <div class="equipment-icon">💻</div>
+            <span data-i18n="lab.computer">Lab Computer</span>
+          </div>
+          <div class="equipment-item" data-equipment="beaker">
+            <div class="equipment-icon">⚗️</div>
+            <span data-i18n="lab.beaker">Beakers</span>
+          </div>
+          <div class="equipment-item" data-equipment="centrifuge">
+            <div class="equipment-icon">🔄</div>
+            <span data-i18n="lab.centrifuge">Centrifuge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lab Modal -->
+  <div class="lab-modal" id="labModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-icon" id="modalIcon">🔬</div>
+      <h2 class="modal-title" id="modalTitle">Equipment Name</h2>
+      <p class="modal-description" id="modalDescription">Equipment description goes here...</p>
+      <div class="modal-stats">
+        <div class="modal-stat">
+          <span class="stat-label" data-i18n="lab.modal.accuracy">Accuracy</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: 95%"></div>
+          </div>
+        </div>
+        <div class="modal-stat">
+          <span class="stat-label" data-i18n="lab.modal.complexity">Complexity</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: 70%"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" data-i18n="lab.modal.experiment">Start Experiment</button>
+    </div>
+  </div>
+
+  <!-- Experiments Section -->
+  <section class="experiments-section">
+    <h2 class="section-title" data-i18n="lab.experiments.title">Available Experiments</h2>
+    <div class="experiments-grid">
+      <div class="experiment-card">
+        <div class="experiment-visual">
+          <div class="exp-animation chemistry-exp"></div>
+        </div>
+        <h3 data-i18n="lab.exp1.title">Chemical Reactions</h3>
+        <p data-i18n="lab.exp1.desc">Mix chemicals and observe reactions in real-time</p>
+        <button class="btn btn-secondary" data-i18n="lab.start">Start</button>
+      </div>
+      <div class="experiment-card">
+        <div class="experiment-visual">
+          <div class="exp-animation dna-exp"></div>
+        </div>
+        <h3 data-i18n="lab.exp2.title">DNA Extraction</h3>
+        <p data-i18n="lab.exp2.desc">Extract and analyze DNA samples</p>
+        <button class="btn btn-secondary" data-i18n="lab.start">Start</button>
+      </div>
+      <div class="experiment-card">
+        <div class="experiment-visual">
+          <div class="exp-animation physics-exp"></div>
+        </div>
+        <h3 data-i18n="lab.exp3.title">Pendulum Motion</h3>
+        <p data-i18n="lab.exp3.desc">Study oscillation and energy transfer</p>
+        <button class="btn btn-secondary" data-i18n="lab.start">Start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo-text">HIJACK</span>
+        <span class="logo-accent">SC</span>
+        <p data-i18n="footer.tagline">Inspiring the next generation of scientists</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <a href="lab.html" data-i18n="nav.lab">Virtual Lab</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+        </div>
+        <div class="footer-column">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+          <a href="#" data-i18n="footer.social">Social Media</a>
+          <a href="#" data-i18n="footer.newsletter">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Hijack Science Centre. <span data-i18n="footer.rights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three-lab.js"></script>
+  <script src="js/gsap-animations.js"></script>
+</body>
+</html>

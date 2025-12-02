@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses - Hijack Science Centre</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <p data-i18n="loading">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-logo">
+      <span class="logo-text">HIJACK</span>
+      <span class="logo-accent">SC</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" class="nav-link active" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" class="nav-link" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" class="nav-link" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <div class="toggle-track">
+          <div class="toggle-thumb">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </div>
+        </div>
+      </button>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Three.js Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Courses Header -->
+  <section class="page-header">
+    <h1 class="page-title" data-i18n="courses.title">Our Courses</h1>
+    <p class="page-subtitle" data-i18n="courses.subtitle">Explore our innovative science programs</p>
+  </section>
+
+  <!-- Course Categories -->
+  <section class="courses-filter">
+    <button class="filter-btn active" data-filter="all" data-i18n="courses.filter.all">All</button>
+    <button class="filter-btn" data-filter="robotics" data-i18n="courses.filter.robotics">Robotics</button>
+    <button class="filter-btn" data-filter="biology" data-i18n="courses.filter.biology">Biology</button>
+    <button class="filter-btn" data-filter="chemistry" data-i18n="courses.filter.chemistry">Chemistry</button>
+    <button class="filter-btn" data-filter="space" data-i18n="courses.filter.space">Space</button>
+  </section>
+
+  <!-- Courses Grid -->
+  <section class="courses-section">
+    <div class="courses-grid">
+      <!-- Course Card 1 -->
+      <div class="course-card" data-category="robotics" data-tilt>
+        <div class="card-3d-object" data-object="robot"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <span class="card-badge" data-i18n="courses.card1.badge">Popular</span>
+          <h3 data-i18n="courses.card1.title">Robotics Engineering</h3>
+          <p data-i18n="courses.card1.desc">Build and program robots with Arduino and Raspberry Pi</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              12 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              120+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course Card 2 -->
+      <div class="course-card" data-category="biology" data-tilt>
+        <div class="card-3d-object" data-object="dna"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <span class="card-badge new" data-i18n="courses.card2.badge">New</span>
+          <h3 data-i18n="courses.card2.title">Genetic Engineering</h3>
+          <p data-i18n="courses.card2.desc">Explore DNA manipulation and CRISPR technology</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              10 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              85+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course Card 3 -->
+      <div class="course-card" data-category="chemistry" data-tilt>
+        <div class="card-3d-object" data-object="molecule"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <h3 data-i18n="courses.card3.title">Advanced Chemistry</h3>
+          <p data-i18n="courses.card3.desc">Master chemical reactions and molecular structures</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              8 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              200+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course Card 4 -->
+      <div class="course-card" data-category="space" data-tilt>
+        <div class="card-3d-object" data-object="rocket"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <span class="card-badge hot" data-i18n="courses.card4.badge">Hot</span>
+          <h3 data-i18n="courses.card4.title">Space Exploration</h3>
+          <p data-i18n="courses.card4.desc">Journey through the cosmos and learn astrophysics</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              16 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              150+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course Card 5 -->
+      <div class="course-card" data-category="robotics" data-tilt>
+        <div class="card-3d-object" data-object="ai"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <h3 data-i18n="courses.card5.title">AI & Machine Learning</h3>
+          <p data-i18n="courses.card5.desc">Build intelligent systems and neural networks</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              14 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              180+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course Card 6 -->
+      <div class="course-card" data-category="biology" data-tilt>
+        <div class="card-3d-object" data-object="microscope"></div>
+        <div class="card-glow"></div>
+        <div class="card-content">
+          <h3 data-i18n="courses.card6.title">Microbiology</h3>
+          <p data-i18n="courses.card6.desc">Study microorganisms and their ecosystems</p>
+          <div class="card-meta">
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              8 <span data-i18n="courses.weeks">weeks</span>
+            </span>
+            <span class="meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              95+
+            </span>
+          </div>
+          <button class="btn btn-primary btn-small" data-i18n="courses.enroll">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo-text">HIJACK</span>
+        <span class="logo-accent">SC</span>
+        <p data-i18n="footer.tagline">Inspiring the next generation of scientists</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <a href="lab.html" data-i18n="nav.lab">Virtual Lab</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+        </div>
+        <div class="footer-column">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+          <a href="#" data-i18n="footer.social">Social Media</a>
+          <a href="#" data-i18n="footer.newsletter">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Hijack Science Centre. <span data-i18n="footer.rights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three-courses.js"></script>
+  <script src="js/gsap-animations.js"></script>
+</body>
+</html>

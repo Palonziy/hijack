@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hijack Science Centre</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <p data-i18n="loading">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-logo">
+      <span class="logo-text">HIJACK</span>
+      <img src="assets/logo.png" alt="Hijack logo" class="logo-image">
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link active" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" class="nav-link" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" class="nav-link" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" class="nav-link" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <!-- Language Switcher -->
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle">
+        <div class="toggle-track">
+          <div class="toggle-thumb">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </div>
+        </div>
+      </button>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="courses.html" data-i18n="nav.courses">Courses</a></li>
+      <li><a href="lab.html" data-i18n="nav.lab">Virtual Lab</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Three.js Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <div class="hero-title-wrapper">
+        <h1 class="hero-title" id="heroTitle">
+          <span class="title-line" data-i18n="hero.title1">HIJACK</span>
+          <span class="title-line accent" data-i18n="hero.title2">SCIENCE CENTRE</span>
+        </h1>
+      </div>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">Explore the Universe of Knowledge</p>
+      <div class="hero-buttons">
+        <a href="courses.html" class="btn btn-primary" data-i18n="hero.explore">Explore Courses</a>
+        <a href="lab.html" class="btn btn-secondary" data-i18n="hero.lab">Virtual Lab</a>
+      </div>
+    </div>
+
+    <!-- Floating UI Panels -->
+    <div class="floating-panel panel-1">
+      <div class="panel-header">
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+      </div>
+      <div class="panel-content">
+        <span class="panel-label" data-i18n="panel.students">Students</span>
+        <span class="panel-value">2,500+</span>
+      </div>
+    </div>
+
+    <div class="floating-panel panel-2">
+      <div class="panel-header">
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+      </div>
+      <div class="panel-content">
+        <span class="panel-label" data-i18n="panel.courses">Courses</span>
+        <span class="panel-value">50+</span>
+      </div>
+    </div>
+
+    <div class="floating-panel panel-3">
+      <div class="panel-header">
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+        <span class="panel-dot"></span>
+      </div>
+      <div class="panel-content">
+        <span class="panel-label" data-i18n="panel.labs">Labs</span>
+        <span class="panel-value">15</span>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span data-i18n="scroll">Scroll Down</span>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="features.title">Why Choose Us</h2>
+      <p class="section-subtitle" data-i18n="features.subtitle">Discover the future of science education</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon">
+          <div class="icon-3d atom-icon"></div>
+        </div>
+        <h3 data-i18n="features.item1.title">Advanced Labs</h3>
+        <p data-i18n="features.item1.desc">State-of-the-art laboratory equipment for hands-on learning</p>
+      </div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon">
+          <div class="icon-3d robot-icon"></div>
+        </div>
+        <h3 data-i18n="features.item2.title">AI Integration</h3>
+        <p data-i18n="features.item2.desc">Learn with cutting-edge artificial intelligence tools</p>
+      </div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon">
+          <div class="icon-3d rocket-icon"></div>
+        </div>
+        <h3 data-i18n="features.item3.title">Space Science</h3>
+        <p data-i18n="features.item3.desc">Explore the cosmos with our astronomy programs</p>
+      </div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon">
+          <div class="icon-3d dna-icon"></div>
+        </div>
+        <h3 data-i18n="features.item4.title">Biotechnology</h3>
+        <p data-i18n="features.item4.desc">Dive into genetic research and molecular biology</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section" id="stats">
+    <div class="stats-container">
+      <div class="stat-item">
+        <span class="stat-number" data-count="2500">0</span>
+        <span class="stat-label" data-i18n="stats.students">Students Enrolled</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="50">0</span>
+        <span class="stat-label" data-i18n="stats.courses">Courses Available</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="98">0</span>
+        <span class="stat-label" data-i18n="stats.satisfaction">% Satisfaction</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-count="25">0</span>
+        <span class="stat-label" data-i18n="stats.experts">Expert Instructors</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="cta">
+    <div class="cta-content">
+      <h2 data-i18n="cta.title">Ready to Start Your Journey?</h2>
+      <p data-i18n="cta.subtitle">Join thousands of students exploring the wonders of science</p>
+      <a href="contact.html" class="btn btn-primary btn-large" data-i18n="cta.button">Get Started Today</a>
+    </div>
+    <div class="cta-particles"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo-text">HIJACK</span>
+        <span class="logo-accent">SC</span>
+        <p data-i18n="footer.tagline">Inspiring the next generation of scientists</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="courses.html" data-i18n="nav.courses">Courses</a>
+          <a href="lab.html" data-i18n="nav.lab">Virtual Lab</a>
+          <a href="about.html" data-i18n="nav.about">About</a>
+        </div>
+        <div class="footer-column">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
+          <a href="#" data-i18n="footer.social">Social Media</a>
+          <a href="#" data-i18n="footer.newsletter">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Hijack Science Centre. <span data-i18n="footer.rights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/lang.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three-home.js"></script>
+  <script src="js/gsap-animations.js"></script>
+</body>
+</html>
